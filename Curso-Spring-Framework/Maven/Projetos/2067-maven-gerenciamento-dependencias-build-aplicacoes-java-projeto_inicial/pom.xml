@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.alura</groupId>
+	<artifactId>loja</artifactId>
+	<version>1.0.0</version>
+<!--	<packaging>war</packaging> define qual o tipo de empacotamento do artifact build-->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope> <!-- compile provida/usada só para tempo de compilação, provided para dizer que a biblioteca vai ser provida/usada pelo próprio servidor da aplicação.
+			runtime provida/usada só para tempo de execução e test que só é usado/provido durante execução de testes -->
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.19</version>
+		</dependency>
+	</dependencies>
+	
+	<repositories> <!-- Configurar repositórios remotos em que o maven procurará dependências, neste caso, do próprio spring, mas primeiro ele olha no cache local da máquina/repositório local -->
+		<repository>
+			<id>spring-repo</id>
+			<url>https://repo.string.io/release</url>
+		</repository>
+	</repositories> <!-- Ele também procura no próprio repositório do maven/mvnrepository. Se tiver configurado no settings.xml que fica na pasta .m2 do User, ele vai levar em consideração
+	este(s) repositório(s), pois ele é mais específico do projto -->
+	
+	<build>
+		<finalName>loja</finalName> <!-- Serve para definir um nome para o artifact build, assim possibilitando a retirada do versionamento no nome -->
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+			
+			<plugin> <!-- Adiciona o plugin de jacoco no projeto, criando dois goals de execução: um é o prepare-agent (Não sei ainda para que serve) e o outro é o report que é executado
+			durante a fase de testes, no caso, durante o mvn test. Ele cria no target um .exec e uma pasta chamada site mostrando a porcentagem de cobertura de testes do projeto (html). -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+</project>
