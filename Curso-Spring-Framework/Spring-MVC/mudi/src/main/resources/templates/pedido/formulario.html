@@ -9,9 +9,9 @@
         <div th:replace="~{base :: titulo('Novo Pedido')}"></div>
 
         <div class="card mt-3"> <!-- $ acessa um objeto request, * é para acessar um atributo do objeto request. th:field preenche o name, id e value deste atributo -->
-            <form th:object="${requisicaoNovoPedido}" class="card-body" action="/pedido/novo" method="post">
+            <form th:object="${requisicaoNovoPedido}" class="card-body" th:action="@{/pedido/novo}" method="post"> <!-- @{}: se a aplicação tiver o path context, o thymeleaf adicionará automaticamente. -->
                 <div class="form-group">
-                    <label for="nomeProduto"></label>
+                    <label for="nomeProduto">Produto:</label>
                     <input th:field="*{nomeProduto}" class="form-control" th:errorclass="is-invalid" type="text" placeholder="nome do produto">
                     <small>Informe qual o nome do produto.</small>
                     <div class="invalid-feedback" th:errors="*{nomeProduto}">
@@ -20,7 +20,7 @@
                 </div>
     
                 <div class="form-group">
-                    <label for="urlProduto"></label>
+                    <label for="urlProduto">Url:</label>
                     <input th:field="*{urlProduto}" class="form-control" th:errorclass="is-invalid" type="text" placeholder="url do produto">
                     <small>Procure em um site o produto que você deseja e cole a url da página aqui.</small>
                     <div class="invalid-feedback" th:errors="*{urlProduto}">
@@ -29,7 +29,7 @@
                 </div>
     
                 <div class="form-group">
-                    <label for="urlImagem"></label>
+                    <label for="urlImagem">Imagem:</label>
                     <input th:field="*{urlImagem}" class="form-control" th:errorclass="is-invalid" type="text" placeholder="url da imagem">
                     <small>Copie a url de uma boa imagem do produto e cole aqui para ajudar a conseguir compradores.</small>
                     <div class="invalid-feedback" th:errors="*{urlImagem}">
@@ -38,7 +38,7 @@
                 </div>
     
                 <div class="form-group mb-3">
-                    <label for="descricao">Descrição</label>
+                    <label for="descricao">Descrição:</label>
                     <textarea th:field="*{descricao}" class="form-control" placeholder="Adicione detalhes importantes para ajudar o comprador."></textarea>    
                 </div>
                 

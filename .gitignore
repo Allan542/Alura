@@ -29,3 +29,7 @@ Curso-Spring-Framework/Curso-Java-Web-Servlets/Servidores/
 **/build/
 **/.idea/
 **/nbproject/
+*.cmd
+*.stackdump
+HELP.md
+mvnw*

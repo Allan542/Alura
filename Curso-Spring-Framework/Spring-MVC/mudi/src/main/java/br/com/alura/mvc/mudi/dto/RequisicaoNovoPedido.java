@@ -1,7 +1,6 @@
 package br.com.alura.mvc.mudi.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.com.alura.mvc.mudi.model.Pedido;
 import br.com.alura.mvc.mudi.model.StatusPedido;

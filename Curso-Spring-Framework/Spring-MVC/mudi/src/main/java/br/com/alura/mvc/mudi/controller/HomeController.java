@@ -1,8 +1,11 @@
 package br.com.alura.mvc.mudi.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,31 +22,19 @@ import br.com.alura.mvc.mudi.repository.PedidoRepository;
 public class HomeController {
 
      // "Eu quero uma instância de pedidoRepository" - injeção de dependências do próprio spring, dizer que é um bean. 
-    //Precisa anotar a própria classe em si para que o speing possa encontrar(@Controller, @Repository, @Service)
+    //Precisa anotar a própria classe em si para que o spring possa encontrar(@Controller, @Repository, @Service)
     @Autowired
     private PedidoRepository pedidoRepository;
 
     @GetMapping
     public String home(Model model){
 
-        List<Pedido> pedidos = pedidoRepository.findAll();
+        Sort sort = Sort.by("dataDaEntrega").descending();
+        PageRequest paginacao = PageRequest.of(0, 10, sort);
+
+        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, paginacao);
         model.addAttribute("pedidos", pedidos);
 
         return "home";
-    }
-
-    @GetMapping("/{status}")
-    public String porStatus(@PathVariable("status") String status, Model model){
-
-        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
-        model.addAttribute("pedidos", pedidos);
-        model.addAttribute("status", status);
-
-        return "home";
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class) // Qual classe de exceção a gente quer mapear
-    public String onError() {
-        return "redirect:/home";
     }
 }
