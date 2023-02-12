@@ -1,0 +1,36 @@
+Como calcular o dígito verificador de um CPF
+Multiplicação começando do 10 e indo decrescente da esquerda para direita(Ex.: 10*5, 9*0 etc.)
+ 5  8  7  4  5  2  9  4  3
+50 72 56 28 30 10 36 12  6
+300 | 11 dividir por 11
+ 80   27
+  3 (resto maior que 1, subtrai por 11)
+11 - 3 = 8 (10º digito)
+
+Multiplicação começando do 11 e indo decrescente da esquerda para direita(Ex.: 11*5, 10*0 etc.)
+ 5  8  7  4  5  2  9  4  3  8
+55 80 63 32 35 12 45 16  9 16
+363 | 11 dividir por 11
+ 33   33
+  0 (resto 0 ou 1, dígito 0)(11º digito)
+Final: 587.452.943-80
+
+Como calcular o dígito verificador de um RG
+Multiplicação começando do 9 e indo decrescende da esquerda para direita(Ex.: 9*5, 8*0 etc.)
+ 4  0  2  4  6  9  7  7
+36  0 14 24 30 36 21 14
+175 | 11 dividir por 11
+ 65   15
+ 10 (resto da divisão define o dígito se < 10. Se for 10, dígito X)
+
+ 4  5  9  4  6  9  7  7
+36 40 63 24 30 36 21 14
+264 | 11 dividir por 11
+ 44   24
+  0  (resto da divisão define o dígito se < 10)
+
+1  2  3  4  5  6  7  8
+9 16 21 24 25 24 21 16
+156 | 11
+ 46   14 (resto da divisão define o dígito. Se mais que 10, subtrair por 11. Se > 10 ainda, X)
+  2 

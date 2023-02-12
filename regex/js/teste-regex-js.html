@@ -1,0 +1,60 @@
+<html>
+    <script>
+        var alvo = '11a22b33c'
+        // var exp = new RegExp('(\\d\\d)(\\w)', 'g')
+        var exp = /(\d\d)(\w)/g // Mais simples e performático
+        // g significa que queremos aplicar esse pattern quantas vezes ele cabe dentro da expressão, 
+        // ou seja, encontrar tudo que for possível
+        
+        console.log(exp.exec(alvo)) // Se executado de novo, é como se ele fizesse o (+)
+        console.log(exp.exec(alvo)) // exec pega como resultado, as partes do alvo que atendem o pattern e devolve um array que
+        // começa com o match inteiro e termina com os grupos()
+        console.log(exp.exec(alvo))
+
+        console.log(exp.test(alvo)) // teste mais simples que apenas pergunta se o alvo segue o pattern e retorna true ou false
+        // e também segue o mesmo padrão acima de (+)
+
+        // var resultado = null
+        // while(resultado = exp.exec(alvo)){
+        //     console.log(resultado)
+        //     console.log(exp.lastIndex)
+        // }
+    </script>
+
+    <script>
+        var anoMesDia = '2007-12-31'
+        var exp = /-/g
+        anoMesDia = anoMesDia.replace(exp, '/')
+        
+        console.log(anoMesDia)
+    </script>
+
+    <script>
+        var arquivo = '100,200-150,200;20'
+        var exp = /[,;-]/
+        var valores = arquivo.split(exp)
+
+        console.log(valores)
+    </script>
+
+    <script>
+        var codigos = 'A121B12112C12212F12G01'
+        var exp = /[A-Za-z]\d+/g
+        var codigosExtraidos = codigos.match(exp)
+
+        console.log(codigosExtraidos)
+    </script>
+
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Testando pattern</title>
+    </head>
+    <body>
+        <form>
+            <input pattern="[0-9]*">
+            <input type="submit" value="Enviar dados">
+        </form>
+    </body>
+</html>
+
