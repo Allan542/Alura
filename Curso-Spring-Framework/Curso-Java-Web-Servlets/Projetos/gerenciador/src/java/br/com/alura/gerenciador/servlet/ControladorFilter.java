@@ -56,7 +56,7 @@ public class ControladorFilter implements Filter {
         
         //        paramAcao.executa(req,res); isso exemplifica o código abaixo
         String nome;
-        try {
+        try { // ação que vai ser executada da package acao
             Class classe = Class.forName(nomeDaClasse); // carrega a classe com o nome
             Acao acao = (Acao) classe.newInstance();
             nome = acao.executa(request, response);
