@@ -13,6 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.concurrent.TimeoutException;
+
 @RestControllerAdvice
 public class TratadorDeErros {
 
@@ -56,5 +58,10 @@ public class TratadorDeErros {
         public DadosErroValidacao(FieldError erro){
             this(erro.getField(), erro.getDefaultMessage());
         }
+    }
+
+    @ExceptionHandler(TimeoutException.class)
+    public ResponseEntity timeoutException(TimeoutException exception) {
+        return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(exception.getMessage());
     }
 }
