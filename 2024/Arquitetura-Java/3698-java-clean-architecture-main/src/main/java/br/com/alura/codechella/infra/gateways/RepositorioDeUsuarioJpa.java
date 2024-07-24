@@ -6,6 +6,7 @@ import br.com.alura.codechella.infra.persistence.UsuarioEntity;
 import br.com.alura.codechella.infra.persistence.UsuarioRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // Os Gateways na camada de infra são responsáveis por implementar os contratos definidos pelos gateways no pacote da aplicação. É neste momento que há implementações concretas
 // para as operações definidas na interface gateway utilizando as tecnologias específicas de infra, como banco de dados, comunicação de rede etc.
@@ -32,7 +33,8 @@ public class RepositorioDeUsuarioJpa implements RepositorioDeUsuario {
 
     @Override
     public List<Usuario> listarTodos() {
-//        return repositorio.findAll();
-        return null;
+        return repositorio.findAll().stream()
+            .map(mapper::toDomain)
+            .collect(Collectors.toList());
     }
 }

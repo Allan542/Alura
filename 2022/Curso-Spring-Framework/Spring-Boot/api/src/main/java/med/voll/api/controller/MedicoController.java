@@ -1,6 +1,5 @@
 package med.voll.api.controller;
 
-import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -39,7 +38,6 @@ public class MedicoController {
 
     @GetMapping() // permite passar como Request Param, o tamanho da paginação(size), qual a página deseja acessar(page)
     // e como deseja ordenar(sort(atributo para ser ordenado, ordem crescente(asc)/decrescente(desc)))
-    @TimeLimiter(name = "teste")
     public CompletionStage<ResponseEntity<Page<DadosListagemMedico>>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return CompletableFuture.supplyAsync(() -> {
             try {
