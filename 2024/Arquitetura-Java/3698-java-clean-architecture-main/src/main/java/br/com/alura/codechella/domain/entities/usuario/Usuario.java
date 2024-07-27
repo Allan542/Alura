@@ -4,6 +4,7 @@ import br.com.alura.codechella.domain.Endereco;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 // Entidade na Clean Architecture é uma classe que possui um ID (Identificador único). Regras de domínio tem que ficar no domínio (Ex.: Não pode cadastrar um usuário com menos de 18 anos).
 public class Usuario {
@@ -67,5 +68,29 @@ public class Usuario {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cpf);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Usuario usuario)) {
+            return false;
+        }
+        return Objects.equals(cpf, usuario.getCpf());
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+            "cpf='" + cpf + '\'' +
+            ", nome='" + nome + '\'' +
+            ", nascimento=" + nascimento +
+            ", email='" + email + '\'' +
+            ", endereco=" + endereco +
+            '}';
     }
 }

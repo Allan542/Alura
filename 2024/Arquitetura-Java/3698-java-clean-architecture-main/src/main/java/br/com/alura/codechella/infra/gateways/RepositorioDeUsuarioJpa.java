@@ -6,6 +6,7 @@ import br.com.alura.codechella.infra.persistence.UsuarioEntity;
 import br.com.alura.codechella.infra.persistence.UsuarioRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 // Os Gateways na camada de infra são responsáveis por implementar os contratos definidos pelos gateways no pacote da aplicação. É neste momento que há implementações concretas
@@ -26,9 +27,13 @@ public class RepositorioDeUsuarioJpa implements RepositorioDeUsuario {
 
     @Override
     public Usuario cadastrarUsuario(Usuario usuario) {
-        UsuarioEntity entity = mapper.toEntity(usuario);
-        repositorio.save(entity);
-        return mapper.toDomain(entity);
+        UsuarioEntity salvo = mapper.toEntity(usuario);
+        Optional<UsuarioEntity> entity = repositorio.findByCpf(salvo.getCpf());
+        if(entity.isPresent()){
+            throw new RuntimeException("Usuario já existe com cpf informado");
+        }
+        repositorio.save(salvo);
+        return mapper.toDomain(salvo);
     }
 
     @Override
@@ -36,5 +41,25 @@ public class RepositorioDeUsuarioJpa implements RepositorioDeUsuario {
         return repositorio.findAll().stream()
             .map(mapper::toDomain)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Usuario alterarUsuario(String cpf, Usuario usuario) {
+        Optional<UsuarioEntity> entity = repositorio.findByCpf(cpf);
+        if(entity.isEmpty() || !cpf.equals(usuario.getCpf())){
+            return null;
+        }
+        UsuarioEntity alterado = mapper.toEntity(usuario);
+        alterado.setId(entity.get().getId());
+        repositorio.save(alterado);
+
+        return usuario;
+    }
+
+    @Override
+    public void excluirUsuario(String cpf) {
+        Optional<UsuarioEntity> entity = repositorio.findByCpf(cpf);
+        entity.ifPresent(usuarioEntity -> repositorio.deleteById(usuarioEntity.getId()));
+
     }
 }
