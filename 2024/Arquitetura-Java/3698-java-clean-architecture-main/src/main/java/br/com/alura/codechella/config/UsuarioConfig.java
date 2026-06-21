@@ -5,7 +5,6 @@ import br.com.alura.codechella.application.usecases.AlterarUsuario;
 import br.com.alura.codechella.application.usecases.CriarUsuario;
 import br.com.alura.codechella.application.usecases.ExcluirUsuario;
 import br.com.alura.codechella.application.usecases.ListarUsuarios;
-import br.com.alura.codechella.infra.gateways.RepositorioDeUsuarioEmArquivo;
 import br.com.alura.codechella.infra.gateways.RepositorioDeUsuarioJpa;
 import br.com.alura.codechella.infra.gateways.UsuarioEntityMapper;
 import br.com.alura.codechella.infra.persistence.UsuarioRepository;
